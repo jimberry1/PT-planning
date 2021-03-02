@@ -4,9 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { createGlobalStyle } from 'styled-components';
+import Background from './assets/Background.svg';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: url(${Background}) fixed center;
+    width: 100vw;
+  }
+`;
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle />
     <App />
   </React.StrictMode>,
   document.getElementById('root')

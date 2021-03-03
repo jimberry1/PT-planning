@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 import { userType } from './types';
 import * as actions from './store/actions/userActions';
+import PageLoader from './components/utilityComponents/PageLoader';
 
 export interface LoginProps {
   changeUser: (user: userType) => void;
@@ -146,6 +147,10 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
         });
     }
   };
+
+  if (!loaded) {
+    return <PageLoader />;
+  }
 
   return (
     <LoginPageContainer>

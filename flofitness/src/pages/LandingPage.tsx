@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FadeUpAndInWithExitUp } from '../styles/animations';
 import { PageContainerStyles } from '../styles/genericStyles';
 import { FadeUpAndInTitleText } from '../styles/animatedStyles';
+import PageLoader from '../components/utilityComponents/PageLoader';
 export interface LandingPageProps {}
 
 const LandingPage: React.SFC<LandingPageProps> = () => {

@@ -7,6 +7,30 @@ import reportWebVitals from './reportWebVitals';
 import { createGlobalStyle } from 'styled-components';
 import Background from './assets/Background.svg';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import authReducer from './store/reducers/auth';
+import userReducer from './store/reducers/user';
+import thunk from 'redux-thunk';
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  user: userReducer,
+  // Add other reducers here if and when they are needed
+});
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,12 +40,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <GlobalStyle />
-      <App />
-    </React.StrictMode>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <React.StrictMode>
+        <GlobalStyle />
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 

@@ -8,12 +8,14 @@ import {
   LoginTitle,
   InfoGrouping,
   SubmitButton,
-  SwitchControls,
   SwitchControls2,
 } from './styles/loginStyles';
+import { connect } from 'react-redux';
+import { userType } from './types';
+import * as actions from './store/actions/userActions';
 
 export interface LoginProps {
-  changeUser: (user: object) => void;
+  changeUser: (user: userType) => void;
   displayErrorHandler: (message: string) => void;
 }
 
@@ -34,10 +36,13 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
             .get()
             .then((docSnapshot: any) => {
               if (docSnapshot.exists) {
-                const userObj = {
-                  name: docSnapshot.data().name,
-                  email: docSnapshot.data().email,
-                  uid: docSnapshot.data().uid,
+                const docData = docSnapshot.data();
+                const userObj: userType = {
+                  forename: docData.forename,
+                  uid: docData.uid,
+                  workoutProgrammeId: docData.workoutProgrammeId,
+                  personalInfo: null,
+                  email: docData.email,
                 };
                 changeUser(userObj);
               }
@@ -67,10 +72,11 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
           if (result) {
             const dbUserRef = db.collection('users').doc(result.user.uid).set(
               {
-                name: displayName,
+                forename: displayName,
                 email: email,
                 uid: result.user.uid,
                 createdDate: firebase.firestore.FieldValue.serverTimestamp(),
+                workoutProgrammeId: '',
               },
               { merge: true }
             );
@@ -78,9 +84,11 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
             localStorage.setItem('floApp_uid', result.user.uid);
 
             changeUser({
-              name: displayName,
+              forename: displayName,
+              uid: result.user.uid,
+              personalInfo: null,
+              workoutProgrammeId: '',
               email: email,
-              createdDate: firebase.firestore.FieldValue.serverTimestamp(),
             });
           }
         })
@@ -99,10 +107,12 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
           const dbUserRef = db.collection('users').doc(result.user.uid);
           dbUserRef.get().then((docSnapshot: any) => {
             if (docSnapshot.exists) {
-              const userObject = {
-                name: docSnapshot.data().name,
+              const userObject: userType = {
+                forename: docSnapshot.data().name,
                 email: docSnapshot.data().email,
                 uid: result.user.uid,
+                personalInfo: null,
+                workoutProgrammeId: docSnapshot.data().workoutProgrammeId,
               };
 
               localStorage.setItem('floApp_uid', result.user.uid);
@@ -112,15 +122,22 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                 "This is the weird case where the user is signing in but actually they don't exist in the user database table"
               );
               const userObject = {
-                name: displayName,
+                forename: displayName,
                 email: email,
                 uid: result.user.uid,
                 createdDate: firebase.firestore.FieldValue.serverTimestamp(),
+                workoutProgrammeId: '',
               };
               dbUserRef.set(userObject);
 
               localStorage.setItem('floApp_uid', result.user.uid);
-              changeUser(userObject);
+              changeUser({
+                forename: displayName,
+                uid: result.user.uid,
+                personalInfo: null,
+                workoutProgrammeId: '',
+                email: email,
+              });
             }
           });
         })
@@ -183,4 +200,15 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => ({
+  uid: state.user.uid,
+});
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeUser: (user: userType) =>
+      dispatch(actions.setUserOnInitialLoad(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

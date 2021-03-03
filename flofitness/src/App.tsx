@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import Login from './Login';
 import { userType } from './types';
 import LandingPage from './pages/LandingPage';
+import { connect } from 'react-redux';
 
-function App() {
-  const [user, setUser] = useState(null);
+const App = (props: any) => {
+  const [user, setUser]: any = useState(null);
   const [error, setError] = useState('');
+  const [uid, setUid]: any = useState(null);
 
-  if (!user) {
-    return (
-      <Login
-        displayErrorHandler={(error: string) => setError(error)}
-        changeUser={(user: userType) => setUser(user)}
-      />
-    );
+  useEffect(() => {
+    setUid(props.uid);
+  }, [props]);
+
+  if (!uid) {
+    return <Login displayErrorHandler={(error: string) => setError(error)} />;
   } else {
     return (
       <Switch>
@@ -22,6 +23,10 @@ function App() {
       </Switch>
     );
   }
-}
+};
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  uid: state.user.uid,
+});
+
+export default connect(mapStateToProps)(App);

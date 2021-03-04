@@ -6,6 +6,7 @@ import WorkoutOverview from '../components/workoutOverview';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FadeUpAndInWithExitUp } from '../styles/animations';
+import { CentrallyAlignedMotionContainer } from '../styles/animatedStyles';
 export interface WeekWorkoutsProps {
   userId: string;
   workoutProgrammeId: string;
@@ -57,13 +58,12 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
         {workouts &&
           workouts.map((workout: any, index: number) => {
             return (
-              <motion.div
+              <CentrallyAlignedMotionContainer
                 variants={FadeUpAndInWithExitUp}
                 transition={{ delay: 1 + 0.3 * index }}
                 initial="hidden"
                 animate="visible"
                 key={workout.id}
-                style={{ width: '100%' }}
               >
                 <WorkoutOverview
                   //   key={workout.id}
@@ -71,7 +71,7 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
                   isSupervisedSession={workout.data.isSupervisedSession}
                   isComplete={workout.data.isComplete}
                 />
-              </motion.div>
+              </CentrallyAlignedMotionContainer>
             );
           })}
       </WorkoutsContainer>

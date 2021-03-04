@@ -3,6 +3,7 @@ import { FadeUpAndInWithExitUp } from '../styles/animations';
 import { PageContainerStyles } from '../styles/genericStyles';
 import { FadeUpAndInTitleText } from '../styles/animatedStyles';
 import PageLoader from '../components/utilityComponents/PageLoader';
+import WeekWorkouts from '../containers/WeekWorkouts';
 export interface LandingPageProps {}
 
 const LandingPage: React.SFC<LandingPageProps> = () => {
@@ -18,6 +19,7 @@ const LandingPage: React.SFC<LandingPageProps> = () => {
       >
         Good morning Jim
       </FadeUpAndInTitleText>
+      <WeekWorkouts />
     </PageContainerStyles>
   );
 };

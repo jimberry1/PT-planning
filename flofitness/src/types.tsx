@@ -10,34 +10,48 @@ export type workoutProgrammeType = {
   clientId: string;
   start: any;
   status?: string;
-  workouts: any; // needs defining
   paid: boolean;
   paused: boolean;
 };
 
-export type workout = {
+export type workoutType = {
+  workoutProgrammeId: string;
   title: string;
-  exercise: any; // needs defining
-  status: string;
-  supervisedSession: boolean;
+  status?: string;
+  isSupervisedSession: boolean;
   timestamp: any;
-};
+  workoutNumber: number;
+  week: number;
+  isComplete: boolean;
+}; // This also has a subcollection called exercises!
 
-export type exercise = {
+export type exerciseType = {
   title: string;
   index: number;
-  exerciseId: string;
-  equipment: any[]; // needs defining
+  exerciseOverviewId: string;
+  equipment: any[];
   isWarmup: boolean;
   isCooldown: boolean;
+  isSuperSet: boolean;
   sets: number[];
   reps: number[];
   weight: number[];
 };
 
-export type exerciseOverview = {
+export type exerciseOverviewType = {
   name: string;
   description: string;
   muscleGroup: string;
   videoLink: string;
 };
+
+/**
+ * User has a workoutProgrammeId which links them to their workoutProgramme.
+ *
+ * WorkoutProgrammes has an overview of the workout plan the customer is on
+ *
+ * Workout table stores all workouts, we are keeping this as a separate table for calendar comparisons. Workout table has a field called workoutProgrammeId which
+ * links the document to the workout plan. Each workout has a subcollection of exercises
+ *
+ * Ex
+ */

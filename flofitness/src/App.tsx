@@ -4,6 +4,7 @@ import Login from './Login';
 import { userType } from './types';
 import LandingPage from './pages/LandingPage';
 import { connect } from 'react-redux';
+import TestPage from './pages/TestPage';
 
 const App = (props: any) => {
   const [user, setUser]: any = useState(null);
@@ -19,6 +20,7 @@ const App = (props: any) => {
   } else {
     return (
       <Switch>
+        <Route path="/test" component={TestPage} />
         <Route path="/" component={LandingPage} />
       </Switch>
     );

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import Login from './Login';
-import { userType } from './types';
 import LandingPage from './pages/LandingPage';
 import { connect } from 'react-redux';
 import TestPage from './pages/TestPage';

@@ -66,7 +66,6 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
                 key={workout.id}
               >
                 <WorkoutOverview
-                  //   key={workout.id}
                   title={workout.data.title}
                   isSupervisedSession={workout.data.isSupervisedSession}
                   isComplete={workout.data.isComplete}

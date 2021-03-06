@@ -7,24 +7,22 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FadeUpAndInWithExitUp } from '../styles/animations';
 import { CentrallyAlignedMotionContainer } from '../styles/animatedStyles';
+import { setRedirectPath } from '../store/actions/adminActions';
+import { Redirect } from 'react-router';
+import { GeneralFullWidthColumnContainer } from '../styles/genericStyles';
 export interface WeekWorkoutsProps {
   userId: string;
   workoutProgrammeId: string;
+  changeRedirectPath: (redirectPath: string) => void;
 }
-
-const WorkoutsContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
   userId,
   workoutProgrammeId,
+  changeRedirectPath,
 }) => {
   const [uid, setUid]: any = useState(null);
+  const [redirectTo, setRedirectTo] = useState('');
   const [workouts, setWorkouts]: any = useState(null);
 
   useEffect(() => {
@@ -52,9 +50,14 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
     }
   }, [workoutProgrammeId]);
 
+  const workoutClickedHandler = (workoutId: string) => {
+    setRedirectTo(`/workout?id=${workoutId}`);
+  };
+
   return (
     <PageContainerStyles>
-      <WorkoutsContainer>
+      {redirectTo && <Redirect push to={redirectTo} />}
+      <GeneralFullWidthColumnContainer>
         {workouts &&
           workouts.map((workout: any, index: number) => {
             return (
@@ -69,11 +72,12 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
                   title={workout.data.title}
                   isSupervisedSession={workout.data.isSupervisedSession}
                   isComplete={workout.data.isComplete}
+                  clicked={() => workoutClickedHandler(workout.id)}
                 />
               </CentrallyAlignedMotionContainer>
             );
           })}
-      </WorkoutsContainer>
+      </GeneralFullWidthColumnContainer>
     </PageContainerStyles>
   );
 };
@@ -83,4 +87,11 @@ const mapStateToProps = (state: any) => ({
   workoutProgrammeId: state.user.workoutProgrammeId,
 });
 
-export default connect(mapStateToProps)(WeekWorkouts);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    changeRedirectPath: (redirectPath: string) =>
+      dispatch(setRedirectPath(redirectPath)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WeekWorkouts);

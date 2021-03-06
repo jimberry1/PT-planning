@@ -7,6 +7,7 @@ export interface WorkoutOverviewProps {
   title: string;
   isSupervisedSession: boolean;
   isComplete: boolean;
+  clicked: () => void;
 }
 
 const StyledWorkoutOverviewContainer = styled.div`
@@ -35,6 +36,7 @@ const WorkoutOverview: React.SFC<WorkoutOverviewProps> = ({
   title,
   isSupervisedSession,
   isComplete,
+  clicked,
 }) => {
   const determineWorkoutIcon = () => {
     if (title.toUpperCase().includes('LEG')) {
@@ -56,6 +58,7 @@ const WorkoutOverview: React.SFC<WorkoutOverviewProps> = ({
   return (
     <StyledWorkoutOverviewContainer
       style={{ background: isSupervisedSession ? 'brown' : '' }}
+      onClick={clicked}
     >
       <StyledWorkoutSectionContainer>
         {determineWorkoutIcon()}

@@ -10,3 +10,7 @@ export const GENERATE_NEW_GAME_CODE = 'GENERATE_NEW_GAME_CODE';
 
 // User types
 export const SET_USER = 'SET_USER';
+
+// Admin types
+export const SET_REDIRECT_PATH = 'SET_REDIRECT_PATH';
+export const UPDATE_ERROR_MESSAGE = 'UPDATE_ERROR_MESSAGE';

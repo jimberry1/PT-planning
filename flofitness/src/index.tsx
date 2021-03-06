@@ -11,11 +11,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import authReducer from './store/reducers/auth';
 import userReducer from './store/reducers/user';
+import adminReducer from './store/reducers/admin';
 import thunk from 'redux-thunk';
+import background2 from './assets/background2.svg';
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
+  admin: adminReducer,
   // Add other reducers here if and when they are needed
 });
 
@@ -34,7 +37,7 @@ const store = createStore(
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background: url(${Background}) fixed center;
+    background: url(${Background})  fixed center;
     width: 100vw;
   }
 `;

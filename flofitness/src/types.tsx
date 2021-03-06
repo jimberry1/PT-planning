@@ -29,14 +29,19 @@ export type exerciseType = {
   title: string;
   index: number;
   exerciseOverviewId: string;
-  equipment: any[];
+  equipment: equipemntType[];
   isWarmup: boolean;
   isCooldown: boolean;
   isSuperSet: boolean;
-  sets: number[];
+  sets: number;
   reps: number[];
   weight: number[];
 };
+
+export interface exerciseHolderType {
+  id: string;
+  data: exerciseType;
+}
 
 export type exerciseOverviewType = {
   name: string;
@@ -45,6 +50,10 @@ export type exerciseOverviewType = {
   videoLink: string;
 };
 
+export type equipemntType = {
+  name: string;
+  weight?: number;
+};
 /**
  * User has a workoutProgrammeId which links them to their workoutProgramme.
  *

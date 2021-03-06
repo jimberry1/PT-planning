@@ -4,6 +4,8 @@ import Login from './Login';
 import LandingPage from './pages/LandingPage';
 import { connect } from 'react-redux';
 import TestPage from './pages/TestPage';
+import WorkoutPage from './pages/WorkoutPage';
+import ExerciseInformationPage from './pages/ExerciseInformationPage';
 
 const App = (props: any) => {
   const [user, setUser]: any = useState(null);
@@ -12,7 +14,7 @@ const App = (props: any) => {
 
   useEffect(() => {
     setUid(props.uid);
-  }, [props]);
+  }, [props.uid]);
 
   if (!uid) {
     return <Login displayErrorHandler={(error: string) => setError(error)} />;
@@ -20,6 +22,11 @@ const App = (props: any) => {
     return (
       <Switch>
         <Route path="/test" component={TestPage} />
+        <Route path="/workout" component={WorkoutPage} />
+        <Route
+          path="/exerciseInformation"
+          component={ExerciseInformationPage}
+        />
         <Route path="/" component={LandingPage} />
       </Switch>
     );
@@ -28,6 +35,7 @@ const App = (props: any) => {
 
 const mapStateToProps = (state: any) => ({
   uid: state.user.uid,
+  redirectPath: state.admin.redirectPath,
 });
 
 export default connect(mapStateToProps)(App);

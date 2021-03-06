@@ -25,7 +25,7 @@ const PageLoader: React.SFC<PageLoaderProps> = () => {
   return (
     <Backdrop>
       <GeneralCentrallyAlignedFlexboxColumnDirection
-        style={{ position: 'relative', top: '20%', gap: 50 }}
+        style={{ position: 'relative', gap: 50 }}
       >
         <GeneralPageSubTitle style={{ color: 'black' }}>
           Just a minute...

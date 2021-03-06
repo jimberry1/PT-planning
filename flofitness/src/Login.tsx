@@ -57,7 +57,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
     } else {
       setLoaded(true);
     }
-  }, []);
+  }, [localStorageUid, changeUser]);
 
   const signIn = (e: any) => {
     e.preventDefault();
@@ -71,7 +71,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
         })
         .then((result: any) => {
           if (result) {
-            const dbUserRef = db.collection('users').doc(result.user.uid).set(
+            db.collection('users').doc(result.user.uid).set(
               {
                 forename: displayName,
                 email: email,

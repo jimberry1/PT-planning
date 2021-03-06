@@ -4,8 +4,18 @@ export const PageContainerStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   overflow-x: none;
+  text-align: center;
+`;
+
+export const GeneralFullWidthColumnContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const GeneralCentrallyAlignedFlexRowContainer = styled.div`
@@ -18,6 +28,7 @@ export const GeneralCentrallyAlignedFlexboxColumnDirection = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
+  justify-content: center;
 `;
 
 export const GeneralPageTitle = styled.div``;

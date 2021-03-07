@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import { GiBiceps, GiLeg, GiPush, GiPull } from 'react-icons/gi';
 import { BiBody } from 'react-icons/bi';
 import { TiTick } from 'react-icons/ti';
+import { workoutType } from '../types';
 // import { IoCheckmarkDoneCircleOutline } from 'react-icons/io';
 export interface WorkoutOverviewProps {
-  title: string;
-  isSupervisedSession: boolean;
-  isComplete: boolean;
   clicked: () => void;
+  workout: workoutType;
 }
 
 const StyledWorkoutOverviewContainer = styled.div`
@@ -33,39 +32,39 @@ const StyledWorkoutSectionContainer = styled.div`
 `;
 
 const WorkoutOverview: React.SFC<WorkoutOverviewProps> = ({
-  title,
-  isSupervisedSession,
-  isComplete,
   clicked,
+  workout,
 }) => {
   const determineWorkoutIcon = () => {
-    if (title.toUpperCase().includes('LEG')) {
+    if (workout.title.toUpperCase().includes('LEG')) {
       return <GiLeg size="30" />;
     } else if (
-      title.toUpperCase().includes('ARM') ||
-      title.toUpperCase().includes('BICEP')
+      workout.title.toUpperCase().includes('ARM') ||
+      workout.title.toUpperCase().includes('BICEP')
     ) {
       return <GiBiceps size="30" />;
-    } else if (title.toUpperCase().includes('PUSH')) {
+    } else if (workout.title.toUpperCase().includes('PUSH')) {
       return <GiPush size="30" />;
-    } else if (title.toUpperCase().includes('PULL')) {
+    } else if (workout.title.toUpperCase().includes('PULL')) {
       return <GiPull size="30" />;
-    } else if (title.toUpperCase().includes('BODY')) {
+    } else if (workout.title.toUpperCase().includes('BODY')) {
       return <BiBody size="30" />;
     }
   };
 
   return (
     <StyledWorkoutOverviewContainer
-      style={{ background: isSupervisedSession ? 'brown' : '' }}
+      style={{ background: workout.isSupervisedSession ? 'brown' : '' }}
       onClick={clicked}
     >
       <StyledWorkoutSectionContainer>
         {determineWorkoutIcon()}
       </StyledWorkoutSectionContainer>
-      <StyledWorkoutSectionContainer>{title}</StyledWorkoutSectionContainer>
       <StyledWorkoutSectionContainer>
-        {isComplete ? (
+        {workout.title}
+      </StyledWorkoutSectionContainer>
+      <StyledWorkoutSectionContainer>
+        {workout.isComplete ? (
           <TiTick size="25" />
         ) : (
           <div

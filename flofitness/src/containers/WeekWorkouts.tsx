@@ -69,10 +69,8 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
                 key={workout.id}
               >
                 <WorkoutOverview
-                  title={workout.data.title}
-                  isSupervisedSession={workout.data.isSupervisedSession}
-                  isComplete={workout.data.isComplete}
                   clicked={() => workoutClickedHandler(workout.id)}
+                  workout={workout.data}
                 />
               </CentrallyAlignedMotionContainer>
             );

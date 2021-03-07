@@ -2,9 +2,12 @@ import { FadeUpAndInWithExitUp } from '../styles/animations';
 import { PageContainerStyles } from '../styles/genericStyles';
 import { FadeUpAndInTitleText } from '../styles/animatedStyles';
 import WeekWorkouts from '../containers/WeekWorkouts';
-export interface LandingPageProps {}
+import { connect } from 'react-redux';
+export interface LandingPageProps {
+  forename: string;
+}
 
-const LandingPage: React.SFC<LandingPageProps> = () => {
+const LandingPage: React.SFC<LandingPageProps> = ({ forename }) => {
   return (
     <PageContainerStyles>
       <FadeUpAndInTitleText
@@ -15,11 +18,14 @@ const LandingPage: React.SFC<LandingPageProps> = () => {
           delay: 0.5,
         }}
       >
-        Good morning Jim
+        Good morning {forename}
       </FadeUpAndInTitleText>
       <WeekWorkouts />
     </PageContainerStyles>
   );
 };
 
-export default LandingPage;
+const mapStateToProps = (state: any) => ({
+  forename: state.user.forename,
+});
+export default connect(mapStateToProps)(LandingPage);

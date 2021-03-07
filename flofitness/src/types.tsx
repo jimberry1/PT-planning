@@ -9,10 +9,12 @@ export type userType = {
 
 export type workoutProgrammeType = {
   clientId: string;
+  clientName: string;
   start: any;
   status?: string;
   paid: boolean;
   paused: boolean;
+  personalTrainerId: string;
 };
 
 export type workoutType = {

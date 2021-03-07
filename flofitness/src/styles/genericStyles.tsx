@@ -6,7 +6,6 @@ export const PageContainerStyles = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow-x: none;
   text-align: center;
   margin-bottom: 30px;
 `;

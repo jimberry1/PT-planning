@@ -6,6 +6,18 @@ import { connect } from 'react-redux';
 import TestPage from './pages/TestPage';
 import WorkoutPage from './pages/WorkoutPage';
 import ExerciseInformationPage from './pages/ExerciseInformationPage';
+import ActionBar from './UI/ActionBar/ActionBar';
+import styled from 'styled-components';
+
+const AppContainerStyles = styled.div`
+  height: 100vh;
+`;
+
+const PageDisplayContainer = styled.div`
+  height: 90vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+`;
 
 const App = (props: any) => {
   const [user, setUser]: any = useState(null);
@@ -20,15 +32,20 @@ const App = (props: any) => {
     return <Login displayErrorHandler={(error: string) => setError(error)} />;
   } else {
     return (
-      <Switch>
-        <Route path="/test" component={TestPage} />
-        <Route path="/workout" component={WorkoutPage} />
-        <Route
-          path="/exerciseInformation"
-          component={ExerciseInformationPage}
-        />
-        <Route path="/" component={LandingPage} />
-      </Switch>
+      <AppContainerStyles>
+        <PageDisplayContainer>
+          <Switch>
+            <Route path="/test" component={TestPage} />
+            <Route path="/workout" component={WorkoutPage} />
+            <Route
+              path="/exerciseInformation"
+              component={ExerciseInformationPage}
+            />
+            <Route path="/" component={LandingPage} />
+          </Switch>
+        </PageDisplayContainer>
+        <ActionBar />
+      </AppContainerStyles>
     );
   }
 };

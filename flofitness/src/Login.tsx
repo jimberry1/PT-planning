@@ -44,6 +44,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                   workoutProgrammeId: docData.workoutProgrammeId,
                   personalInfo: null,
                   email: docData.email,
+                  isPT: docData.isPT,
                 };
                 changeUser(userObj);
               }
@@ -78,6 +79,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                 uid: result.user.uid,
                 createdDate: firebase.firestore.FieldValue.serverTimestamp(),
                 workoutProgrammeId: '',
+                isPT: false,
               },
               { merge: true }
             );
@@ -90,6 +92,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
               personalInfo: null,
               workoutProgrammeId: '',
               email: email,
+              isPT: false,
             });
           }
         })
@@ -114,6 +117,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                 uid: result.user.uid,
                 personalInfo: null,
                 workoutProgrammeId: docSnapshot.data().workoutProgrammeId,
+                isPT: docSnapshot.data().isPT,
               };
 
               localStorage.setItem('floApp_uid', result.user.uid);
@@ -128,6 +132,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                 uid: result.user.uid,
                 createdDate: firebase.firestore.FieldValue.serverTimestamp(),
                 workoutProgrammeId: '',
+                isPT: false,
               };
               dbUserRef.set(userObject);
 
@@ -138,6 +143,7 @@ const Login = ({ changeUser, displayErrorHandler }: LoginProps) => {
                 personalInfo: null,
                 workoutProgrammeId: '',
                 email: email,
+                isPT: false,
               });
             }
           });

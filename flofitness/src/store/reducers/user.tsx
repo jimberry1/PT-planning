@@ -8,6 +8,7 @@ const initialState: userType = {
   personalInfo: null,
   workoutProgrammeId: '',
   email: '',
+  isPT: false,
 };
 
 const setUser = (state: userType, action: any) => {
@@ -17,6 +18,7 @@ const setUser = (state: userType, action: any) => {
     personalInfo: action.personalInfo,
     workoutProgrammeId: action.workoutProgrammeId,
     email: action.email,
+    isPT: action.isPT,
   });
 };
 

@@ -62,8 +62,6 @@ const ExerciseInformation: React.SFC<ExerciseInformationProps> = ({
     }
   }, [exerciseId]);
 
-  console.log(exerciseVideoUrl);
-
   return (
     <PageContainerStyles>
       <TitleContainerStyles>{exerciseInformation?.name}</TitleContainerStyles>

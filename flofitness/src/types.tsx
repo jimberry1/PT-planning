@@ -4,6 +4,7 @@ export type userType = {
   personalInfo: any; // needs defining
   workoutProgrammeId: string;
   email: string;
+  isPT: boolean;
 };
 
 export type workoutProgrammeType = {

@@ -8,6 +8,8 @@ import WorkoutPage from './pages/WorkoutPage';
 import ExerciseInformationPage from './pages/ExerciseInformationPage';
 import ActionBar from './UI/ActionBar/ActionBar';
 import styled from 'styled-components';
+import PersonalTrainerControlPage from './pages/PersonalTrainerControlPage';
+import ManageWorkoutProgrammePage from './pages/ManageWorkoutProgrammePage';
 
 const AppContainerStyles = styled.div`
   height: 100vh;
@@ -40,6 +42,11 @@ const App = (props: any) => {
             <Route
               path="/exerciseInformation"
               component={ExerciseInformationPage}
+            />
+            <Route path="/control" component={PersonalTrainerControlPage} />
+            <Route
+              path="/manageWorkoutProgramme"
+              component={ManageWorkoutProgrammePage}
             />
             <Route path="/" component={LandingPage} />
           </Switch>

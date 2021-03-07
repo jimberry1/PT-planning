@@ -3,7 +3,7 @@ import { PageContainerStyles } from '../styles/genericStyles';
 import db, { storage } from '../firebase';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
-
+import Loader from 'react-loader-spinner';
 export interface ExerciseInformationProps {
   exerciseId: string;
 }
@@ -29,6 +29,7 @@ const ExerciseInformation: React.SFC<ExerciseInformationProps> = ({
 }) => {
   const [exerciseInformation, setExerciseInformation]: any = useState();
   const [exerciseVideoUrl, setExerciseVideoUrl] = useState('');
+  const [videoLoading, setVideoLoading] = useState(true);
   const [playVideo, setPlayVideo] = useState(false);
 
   useEffect(() => {
@@ -69,6 +70,9 @@ const ExerciseInformation: React.SFC<ExerciseInformationProps> = ({
       <ExerciseDescriptionContainer>
         {exerciseInformation?.description}
       </ExerciseDescriptionContainer>
+      {videoLoading && (
+        <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
+      )}
       {exerciseVideoUrl && (
         <div style={{ marginTop: 50 }}>
           <ReactPlayer
@@ -76,6 +80,7 @@ const ExerciseInformation: React.SFC<ExerciseInformationProps> = ({
             onClick={() => setPlayVideo((curVal) => !curVal)}
             playing={playVideo}
             loop={true}
+            onReady={() => setVideoLoading(false)}
           />
         </div>
       )}

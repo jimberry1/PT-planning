@@ -8,6 +8,7 @@ export const PageContainerStyles = styled.div`
   width: 100%;
   overflow-x: none;
   text-align: center;
+  margin-bottom: 30px;
 `;
 
 export const GeneralFullWidthColumnContainer = styled.div`

@@ -47,3 +47,26 @@ export const GeneralPageSubTitle = styled.div`
 export const GeneralPageTextBody = styled.span`
   padding: 5px;
 `;
+
+export const GeneralButtonTest = styled.div`
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  background: linear-gradient(90deg, #ff8008 0%, #ffc837 100%);
+  border: 5px solid #222;
+  border-radius: 50px;
+  margin: auto;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    background: linear-gradient(90deg, #ff8008 0%, #c17b16 100%);
+  }
+`;
+
+export const GeneralInputStyle = styled.input`
+  padding: 5px;
+  border-radius: 5px;
+`;

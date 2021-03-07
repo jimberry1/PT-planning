@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineHome, AiOutlinePlus } from 'react-icons/ai';
 import { BsCalendar } from 'react-icons/bs';
 import { RiAccountBoxLine } from 'react-icons/ri';
 import { useState } from 'react';
@@ -45,6 +45,11 @@ const ActionBar: React.SFC<ActionBarProps> = () => {
         onClick={() => handleActionBarItemClicked('/calendar')}
       >
         <BsCalendar size={30} />
+      </ActionBarItemContainer>
+      <ActionBarItemContainer
+        onClick={() => handleActionBarItemClicked('/control')}
+      >
+        <AiOutlinePlus size={30} />
       </ActionBarItemContainer>
     </ActionBarContainer>
   );

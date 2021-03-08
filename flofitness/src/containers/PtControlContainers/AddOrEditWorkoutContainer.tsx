@@ -7,24 +7,33 @@ import {
   fetchWorkoutInformationForWorkoutId,
 } from '../../config/firebaseQueries';
 import { workoutType } from '../../types';
+import { useHistory } from 'react-router';
+import { ADD_OR_EDIT_WORKOUT } from '../../config/pageRoutes';
 
 export interface AddOrEditWorkoutContainerProps {
   workoutId: string;
   workoutProgrammeId: string;
+  workoutNumberIfAdding: number;
 }
 
 const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   workoutId,
   workoutProgrammeId,
+  workoutNumberIfAdding,
 }) => {
+  const history = useHistory();
   const [title, setTitle] = useState('');
   const [isSupervisedSession, setIsSupervisedSession] = useState(false);
   const [timestamp, setTimestamp] = useState(null);
-  const [workoutNumber, setWorkoutNumber] = useState(-1);
+  const [workoutNumber, setWorkoutNumber] = useState(workoutNumberIfAdding);
   const [status, setStatus]: any = useState('');
-  const [week, setWeek] = useState(-1);
+  const [week, setWeek] = useState(1);
   const [isComplete, setIsComplete] = useState(false);
   const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    setWorkoutNumber(workoutNumberIfAdding);
+  }, [workoutNumberIfAdding]);
 
   useEffect(() => {
     const getWorkoutInformationFromFirebase = async () => {
@@ -90,21 +99,28 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   };
 
   const addNewWorkoutToToWorkoutProgramme = () => {
-    addNewWorkout().add({
-      title: title,
-      isSupervisedSession: isSupervisedSession,
-      isComplete: false,
-      week: week,
-      workoutNumber: workoutNumber,
-      timestamp: timestamp,
-      workoutProgrammeId: workoutProgrammeId,
-    });
+    addNewWorkout()
+      .add({
+        title: title,
+        isSupervisedSession: isSupervisedSession,
+        isComplete: false,
+        week: week,
+        workoutNumber: workoutNumber,
+        timestamp: timestamp,
+        workoutProgrammeId: workoutProgrammeId,
+      })
+      .then((doc) => {
+        console.log(doc.id);
+        history.push(
+          `${ADD_OR_EDIT_WORKOUT}?workoutId=${doc.id}&workoutProgrammeId=${workoutProgrammeId}`
+        );
+      });
   };
 
   const updateExistingWorkout = () => {};
 
   const workoutSubmitButtonHandler = () => {
-    if (workoutProgrammeId) {
+    if (workoutId) {
       fetchWorkoutInformationForWorkoutId(workoutId)
         .update({
           title: title,
@@ -137,6 +153,7 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
           status: status,
           workoutProgrammeId: workoutProgrammeId,
         }}
+        workoutId={workoutId}
         onWorkoutValueChange={(event: any, target: string) =>
           handleWorkoutInformationChanged(event, target)
         }

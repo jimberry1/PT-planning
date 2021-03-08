@@ -14,6 +14,8 @@ import {
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import { useHistory } from 'react-router';
+import { ADD_OR_EDIT_WORKOUT } from '../../config/pageRoutes';
 
 export interface ManageWorkoutInformationProps {
   workoutProgrammeId: string;
@@ -23,6 +25,7 @@ const ButtonContainer = styled(motion.div)``;
 const ManageWorkoutInformation: React.SFC<ManageWorkoutInformationProps> = ({
   workoutProgrammeId,
 }) => {
+  const history = useHistory();
   const [workoutProgrammeOverview, setWorkoutProgrammeOverview] = useState({
     clientId: '',
     clientName: '',
@@ -74,6 +77,9 @@ const ManageWorkoutInformation: React.SFC<ManageWorkoutInformationProps> = ({
 
   const workoutClickedHandler = (workoutId: string) => {
     console.log(workoutId);
+    history.push(
+      `${ADD_OR_EDIT_WORKOUT}?workoutId=${workoutId}&workoutProgrammeId=${workoutProgrammeId}`
+    );
   };
 
   return (

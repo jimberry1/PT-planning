@@ -1,5 +1,10 @@
 import db from '../firebase';
-import { WORKOUTS, WORKOUT_PROGRAMME } from './firebaseCollectionEndpoints';
+import {
+  EXERCISES,
+  WORKOUTS,
+  WORKOUT_PROGRAMME,
+} from './firebaseCollectionEndpoints';
+import { WORKOUT } from './pageRoutes';
 
 export const fetchWorkoutProgrammesByPersonalTrainerId = (
   personalTrainerId: string
@@ -21,4 +26,16 @@ export const fetchAllWorkoutsForWorkoutProgrammeId = (
   return db
     .collection(WORKOUTS)
     .where('workoutProgrammeId', '==', workoutProgrammeId);
+};
+
+export const fetchWorkoutInformationForWorkoutId = (workoutId: string) => {
+  return db.collection(WORKOUTS).doc(workoutId);
+};
+
+export const fetchAllExercisesForWorkoutId = (workoutId: string) => {
+  return db.collection(WORKOUTS).doc(workoutId).collection(EXERCISES);
+};
+
+export const addNewWorkout = () => {
+  return db.collection(WORKOUT);
 };

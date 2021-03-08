@@ -10,7 +10,14 @@ import ActionBar from './UI/ActionBar/ActionBar';
 import styled from 'styled-components';
 import PersonalTrainerControlPage from './pages/PersonalTrainerControlPage';
 import ManageWorkoutProgrammePage from './pages/ManageWorkoutProgrammePage';
-
+import AddOrEditWorkoutPage from './pages/PersonalTrainerOnlyPages.tsx/AddOrEditWorkoutPage';
+import {
+  CONTROL,
+  EXERCISE_INFORMATION,
+  ADD_OR_EDIT_WORKOUT,
+  MANAGE_WORKOUT_PROGRAMME,
+  WORKOUT,
+} from './config/pageRoutes';
 const AppContainerStyles = styled.div`
   height: 100vh;
 `;
@@ -38,15 +45,19 @@ const App = (props: any) => {
         <PageDisplayContainer>
           <Switch>
             <Route path="/test" component={TestPage} />
-            <Route path="/workout" component={WorkoutPage} />
+            <Route path={WORKOUT} component={WorkoutPage} />
             <Route
-              path="/exerciseInformation"
+              path={EXERCISE_INFORMATION}
               component={ExerciseInformationPage}
             />
-            <Route path="/control" component={PersonalTrainerControlPage} />
+            <Route path={CONTROL} component={PersonalTrainerControlPage} />
             <Route
-              path="/manageWorkoutProgramme"
+              path={MANAGE_WORKOUT_PROGRAMME}
               component={ManageWorkoutProgrammePage}
+            />
+            <Route
+              path={ADD_OR_EDIT_WORKOUT}
+              component={AddOrEditWorkoutPage}
             />
             <Route path="/" component={LandingPage} />
           </Switch>

@@ -26,12 +26,14 @@ const InputTitleContainer = styled.div`
 
 export interface AddOrEditWorkoutFormProps {
   workout: workoutType;
+  workoutId: string;
   onWorkoutValueChange: (event: any, target: string) => void;
   submitButtonClicked: () => void;
 }
 
 const AddOrEditWorkoutForm: React.SFC<AddOrEditWorkoutFormProps> = ({
   workout,
+  workoutId,
   onWorkoutValueChange,
   submitButtonClicked,
 }) => {
@@ -81,7 +83,7 @@ const AddOrEditWorkoutForm: React.SFC<AddOrEditWorkoutFormProps> = ({
         style={{ marginTop: 20 }}
         onClick={submitButtonClicked}
       >
-        {workout.workoutProgrammeId ? 'Update workout' : 'Add workout'}
+        {workoutId ? 'Update workout' : 'Add workout'}
       </GeneralButtonTest>
     </PageContainerStyles>
   );

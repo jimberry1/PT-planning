@@ -37,5 +37,5 @@ export const fetchAllExercisesForWorkoutId = (workoutId: string) => {
 };
 
 export const addNewWorkout = () => {
-  return db.collection(WORKOUT);
+  return db.collection(WORKOUTS);
 };

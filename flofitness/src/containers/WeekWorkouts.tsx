@@ -75,12 +75,12 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
               </CentrallyAlignedMotionContainer>
             );
           })}
-        {
+        {!workoutProgrammeId && (
           <div style={{ border: '1px solid gray', padding: 10, width: '80%' }}>
             You currently have no assigned workout programme. Contact your
             personal trainer for more information!
           </div>
-        }
+        )}
       </GeneralFullWidthColumnContainer>
     </PageContainerStyles>
   );

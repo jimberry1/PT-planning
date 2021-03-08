@@ -76,9 +76,16 @@ const ManageWorkoutInformation: React.SFC<ManageWorkoutInformationProps> = ({
   }, [workoutProgrammeId]);
 
   const workoutClickedHandler = (workoutId: string) => {
-    console.log(workoutId);
     history.push(
       `${ADD_OR_EDIT_WORKOUT}?workoutId=${workoutId}&workoutProgrammeId=${workoutProgrammeId}`
+    );
+  };
+
+  const addWorkoutClickedHandler = () => {
+    history.push(
+      `${ADD_OR_EDIT_WORKOUT}?workoutProgrammeId=${workoutProgrammeId}&workoutNumber=${
+        workoutsForWorkoutProgramme.length + 1
+      }`
     );
   };
 
@@ -110,6 +117,7 @@ const ManageWorkoutInformation: React.SFC<ManageWorkoutInformationProps> = ({
         variants={{ interact: { y: -10, scale: 1.1 } }}
         whileHover="interact"
         whileTap="interact"
+        onClick={addWorkoutClickedHandler}
       >
         <AiOutlinePlusCircle size={50} />
       </ButtonContainer>

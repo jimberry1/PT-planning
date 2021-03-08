@@ -8,7 +8,10 @@ import {
 } from '../../config/firebaseQueries';
 import { workoutType } from '../../types';
 import { useHistory } from 'react-router';
-import { ADD_OR_EDIT_WORKOUT } from '../../config/pageRoutes';
+import {
+  ADD_OR_EDIT_WORKOUT,
+  MANAGE_WORKOUT_PROGRAMME,
+} from '../../config/pageRoutes';
 
 export interface AddOrEditWorkoutContainerProps {
   workoutId: string;
@@ -132,6 +135,9 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
         })
         .then(() => {
           console.log('DONE!');
+          history.push(
+            `${MANAGE_WORKOUT_PROGRAMME}?workoutProgrammeId=${workoutProgrammeId}`
+          );
         });
     } else {
       if (title) {

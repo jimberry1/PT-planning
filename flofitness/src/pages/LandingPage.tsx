@@ -3,11 +3,29 @@ import { PageContainerStyles } from '../styles/genericStyles';
 import { FadeUpAndInTitleText } from '../styles/animatedStyles';
 import WeekWorkouts from '../containers/WeekWorkouts';
 import { connect } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { fetchWorkoutProgrammeInformationById } from '../config/firebaseQueries';
 export interface LandingPageProps {
   forename: string;
+  userId: string;
+  workoutProgrammeId: string;
 }
 
-const LandingPage: React.SFC<LandingPageProps> = ({ forename }) => {
+const LandingPage: React.SFC<LandingPageProps> = ({
+  forename,
+  userId,
+  workoutProgrammeId,
+}) => {
+  const [workoutProgrammeInfo, setWorkoutProgrammeInfo]: any = useState(null);
+  useEffect(() => {
+    fetchWorkoutProgrammeInformationById(workoutProgrammeId)
+      .get()
+      .then((workoutProgrammeInfoSnapshot) => {
+        if (workoutProgrammeInfoSnapshot.exists) {
+          setWorkoutProgrammeInfo(workoutProgrammeInfoSnapshot.data());
+        }
+      });
+  }, []);
   return (
     <PageContainerStyles>
       <FadeUpAndInTitleText
@@ -20,12 +38,20 @@ const LandingPage: React.SFC<LandingPageProps> = ({ forename }) => {
       >
         Good morning {forename}
       </FadeUpAndInTitleText>
-      <WeekWorkouts />
+      {workoutProgrammeInfo && (
+        <WeekWorkouts
+          userId={userId}
+          workoutProgrammeId={workoutProgrammeId}
+          week={workoutProgrammeInfo.week}
+        />
+      )}
     </PageContainerStyles>
   );
 };
 
 const mapStateToProps = (state: any) => ({
   forename: state.user.forename,
+  userId: state.user.uid,
+  workoutProgrammeId: state.user.workoutProgrammeId,
 });
 export default connect(mapStateToProps)(LandingPage);

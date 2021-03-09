@@ -6,3 +6,14 @@ export const setRedirectPath = (redirectPath: string) => {
     redirectPath: redirectPath,
   };
 };
+
+export const setErrorMessage = (
+  errorMessageTitle: string,
+  errorMessageBody: string
+) => {
+  return {
+    type: actionTypes.UPDATE_ERROR_MESSAGE,
+    errorMessageBody: errorMessageBody,
+    errorMessageTitle: errorMessageTitle,
+  };
+};

@@ -39,3 +39,13 @@ export const fetchAllExercisesForWorkoutId = (workoutId: string) => {
 export const addNewWorkout = () => {
   return db.collection(WORKOUTS);
 };
+
+export const fetchWorkoutsForWorkoutProgrammeIdAndCurrentWeek = (
+  workoutProgrammeId: string,
+  week: number
+) => {
+  return db
+    .collection(WORKOUTS)
+    .where('workoutProgrammeId', '==', workoutProgrammeId)
+    .where('week', '==', week);
+};

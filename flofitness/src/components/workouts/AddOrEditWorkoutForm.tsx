@@ -53,7 +53,8 @@ const AddOrEditWorkoutForm: React.SFC<AddOrEditWorkoutFormProps> = ({
         <GeneralInputStyle
           style={{ textAlign: 'center' }}
           value={workout.week}
-          onChange={(e) => onWorkoutValueChange(e, 'week')}
+          type="number"
+          onChange={(e) => onWorkoutValueChange(e.target.valueAsNumber, 'week')}
         />
       </InputContainer>
 
@@ -62,7 +63,10 @@ const AddOrEditWorkoutForm: React.SFC<AddOrEditWorkoutFormProps> = ({
         <GeneralInputStyle
           style={{ textAlign: 'center' }}
           value={workout.workoutNumber}
-          onChange={(e) => onWorkoutValueChange(e, 'workoutNumber')}
+          type="number"
+          onChange={(e) =>
+            onWorkoutValueChange(e.target.valueAsNumber, 'workoutNumber')
+          }
         />
       </InputContainer>
       <InputContainer

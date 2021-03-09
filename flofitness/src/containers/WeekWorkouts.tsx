@@ -10,9 +10,11 @@ import { CentrallyAlignedMotionContainer } from '../styles/animatedStyles';
 import { setRedirectPath } from '../store/actions/adminActions';
 import { Redirect } from 'react-router';
 import { GeneralFullWidthColumnContainer } from '../styles/genericStyles';
+import { fetchWorkoutsForWorkoutProgrammeIdAndCurrentWeek } from '../config/firebaseQueries';
 export interface WeekWorkoutsProps {
   userId: string;
   workoutProgrammeId: string;
+  week: number;
   changeRedirectPath: (redirectPath: string) => void;
 }
 
@@ -20,6 +22,7 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
   userId,
   workoutProgrammeId,
   changeRedirectPath,
+  week,
 }) => {
   const [uid, setUid]: any = useState(null);
   const [redirectTo, setRedirectTo] = useState('');
@@ -31,10 +34,10 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
 
   useEffect(() => {
     async function getWorkoutInformation() {
-      await db
-        .collection('workouts')
-        .where('workoutProgrammeId', '==', workoutProgrammeId)
-        .where('week', '==', 1)
+      await fetchWorkoutsForWorkoutProgrammeIdAndCurrentWeek(
+        workoutProgrammeId,
+        week
+      )
         .get()
         .then((docSnapshot) => {
           setWorkouts(
@@ -45,10 +48,10 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
           );
         });
     }
-    if (workoutProgrammeId) {
+    if (workoutProgrammeId && week > 0) {
       getWorkoutInformation();
     }
-  }, [workoutProgrammeId]);
+  }, [workoutProgrammeId, week]);
 
   const workoutClickedHandler = (workoutId: string) => {
     setRedirectTo(`/workout?id=${workoutId}`);
@@ -86,11 +89,6 @@ const WeekWorkouts: React.SFC<WeekWorkoutsProps> = ({
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  userId: state.user.uid,
-  workoutProgrammeId: state.user.workoutProgrammeId,
-});
-
 const mapDispatchToProps = (dispatch: any) => {
   return {
     changeRedirectPath: (redirectPath: string) =>
@@ -98,4 +96,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(WeekWorkouts);
+export default connect(mapDispatchToProps)(WeekWorkouts);

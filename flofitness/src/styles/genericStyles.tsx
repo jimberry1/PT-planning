@@ -69,4 +69,5 @@ export const GeneralButtonTest = styled.div`
 export const GeneralInputStyle = styled.input`
   padding: 5px;
   border-radius: 5px;
+  font-size: 20px;
 `;

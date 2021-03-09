@@ -12,17 +12,21 @@ import {
   ADD_OR_EDIT_WORKOUT,
   MANAGE_WORKOUT_PROGRAMME,
 } from '../../config/pageRoutes';
+import * as actions from '../../store/actions/adminActions';
+import { connect } from 'react-redux';
 
 export interface AddOrEditWorkoutContainerProps {
   workoutId: string;
   workoutProgrammeId: string;
   workoutNumberIfAdding: number;
+  addErrorMessage: any;
 }
 
 const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   workoutId,
   workoutProgrammeId,
   workoutNumberIfAdding,
+  addErrorMessage,
 }) => {
   const history = useHistory();
   const [title, setTitle] = useState('');
@@ -85,13 +89,13 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
         return setTimestamp(event.target.value);
       }
       case 'workoutNumber': {
-        return setWorkoutNumber(event.target.value);
+        return setWorkoutNumber(event);
       }
       case 'status': {
         return setStatus(event.target.value);
       }
       case 'week': {
-        return setWeek(event.target.value);
+        return setWeek(event);
       }
       case 'isComplete': {
         return setIsComplete((curVal) => !curVal);
@@ -123,6 +127,13 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   const updateExistingWorkout = () => {};
 
   const workoutSubmitButtonHandler = () => {
+    if (!title || !week || !workoutNumber) {
+      return addErrorMessage(
+        'Action failed',
+        'Please complete all mandatory fields before submitting the workout'
+      );
+    }
+
     if (workoutId) {
       fetchWorkoutInformationForWorkoutId(workoutId)
         .update({
@@ -169,4 +180,11 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   );
 };
 
-export default AddOrEditWorkoutContainer;
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    addErrorMessage: (title: string, body: string) =>
+      dispatch(actions.setErrorMessage(title, body)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AddOrEditWorkoutContainer);

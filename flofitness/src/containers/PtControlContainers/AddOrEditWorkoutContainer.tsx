@@ -14,6 +14,7 @@ import {
 } from '../../config/pageRoutes';
 import * as actions from '../../store/actions/adminActions';
 import { connect } from 'react-redux';
+import ManageExercisesForWorkoutContainer from './ManageExercisesForWorkoutContainer';
 
 export interface AddOrEditWorkoutContainerProps {
   workoutId: string;
@@ -176,6 +177,7 @@ const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
         }
         submitButtonClicked={workoutSubmitButtonHandler}
       />
+      <ManageExercisesForWorkoutContainer workoutId={workoutId} />
     </PageContainerStyles>
   );
 };

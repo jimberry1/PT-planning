@@ -65,5 +65,5 @@ export type equipemntType = {
  * Workout table stores all workouts, we are keeping this as a separate table for calendar comparisons. Workout table has a field called workoutProgrammeId which
  * links the document to the workout plan. Each workout has a subcollection of exercises
  *
- * Ex
+ * TODO - add a type for nutrition and eating plan
  */

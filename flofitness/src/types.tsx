@@ -66,4 +66,7 @@ export type equipemntType = {
  * links the document to the workout plan. Each workout has a subcollection of exercises
  *
  * TODO - add a type for nutrition and eating plan
+ *
+ * I am in pain for not committing yesterday
+ *
  */

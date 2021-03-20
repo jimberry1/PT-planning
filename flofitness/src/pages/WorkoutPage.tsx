@@ -9,6 +9,10 @@ export interface WorkoutPageProps {
   userId: string;
 }
 
+/**
+ * This page displays workout information for the client. It is accessed by clicking on an exercise from the landing page.
+ * @param param
+ */
 const WorkoutPage: React.SFC<WorkoutPageProps> = ({ userId }) => {
   const location = useLocation();
   const [workoutId, setWorkoutId] = useState('');

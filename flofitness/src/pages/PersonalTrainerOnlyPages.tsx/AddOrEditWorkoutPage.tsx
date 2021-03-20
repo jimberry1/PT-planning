@@ -4,6 +4,9 @@ import { useLocation } from 'react-router';
 import AddOrEditWorkoutContainer from '../../containers/PtControlContainers/AddOrEditWorkoutContainer';
 export interface AddOrEditWorkoutPageProps {}
 
+/**
+ * This page is the personal trainer display for information on an individual workout and the exercises it contains
+ */
 const AddOrEditWorkoutPage: React.SFC<AddOrEditWorkoutPageProps> = () => {
   const location = useLocation();
   const [workoutId, setWorkoutId] = useState('');

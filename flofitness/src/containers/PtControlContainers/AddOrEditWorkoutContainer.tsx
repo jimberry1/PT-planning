@@ -23,6 +23,10 @@ export interface AddOrEditWorkoutContainerProps {
   addErrorMessage: any;
 }
 
+/**
+ * This page manages the updating and creation of workout programmes and the exercises those workouts entail.
+ * @param param
+ */
 const AddOrEditWorkoutContainer: React.SFC<AddOrEditWorkoutContainerProps> = ({
   workoutId,
   workoutProgrammeId,

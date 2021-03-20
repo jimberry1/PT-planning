@@ -40,6 +40,10 @@ export const addNewWorkout = () => {
   return db.collection(WORKOUTS);
 };
 
+export const connectToWorkoutExercisesForWorkoutId = (workoutId: string) => {
+  return db.collection(WORKOUTS).doc(workoutId).collection(EXERCISES);
+};
+
 export const fetchWorkoutsForWorkoutProgrammeIdAndCurrentWeek = (
   workoutProgrammeId: string,
   week: number

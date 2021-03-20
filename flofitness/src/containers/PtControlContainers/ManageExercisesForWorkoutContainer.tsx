@@ -2,10 +2,17 @@ import { useState, useEffect } from 'react';
 import EditableExercise from '../../components/exerciseComponents/editableExercise';
 import Exercise from '../../components/exerciseComponents/exercise';
 import WorkoutOverview from '../../components/workoutOverview';
-import { fetchAllExercisesForWorkoutId } from '../../config/firebaseQueries';
+import {
+  connectToWorkoutExercisesForWorkoutId,
+  fetchAllExercisesForWorkoutId,
+} from '../../config/firebaseQueries';
 import db from '../../firebase';
-import { PageContainerStyles } from '../../styles/genericStyles';
+import {
+  GeneralPageSubTitle,
+  PageContainerStyles,
+} from '../../styles/genericStyles';
 import { exerciseType } from '../../types';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 export interface ManageExercisesForWorkoutContainerProps {
   workoutId: string;
@@ -15,6 +22,7 @@ const ManageExercisesForWorkoutContainer: React.SFC<ManageExercisesForWorkoutCon
   workoutId,
 }) => {
   const [exercises, setExercises]: any = useState([]);
+  const [workoutAdded, setWorkoutAdded] = useState(false);
 
   useEffect(() => {
     const fetchExerciseInformationFromFirebase = async () => {
@@ -22,10 +30,18 @@ const ManageExercisesForWorkoutContainer: React.SFC<ManageExercisesForWorkoutCon
         .get()
         .then((exercisesSnapshot: any) => {
           setExercises(
-            exercisesSnapshot.docs.map((exercise: any) => ({
-              id: exercise.id,
-              data: exercise.data(),
-            }))
+            exercisesSnapshot.docs
+              .sort((doc1: any, doc2: any) => {
+                if (doc1.data().index < doc2.data().index) {
+                  return -1;
+                } else if (doc1.data().index > doc2.data().index) {
+                  return 1;
+                } else return 0;
+              })
+              .map((exercise: any) => ({
+                id: exercise.id,
+                data: exercise.data(),
+              }))
           );
         });
     };
@@ -33,10 +49,30 @@ const ManageExercisesForWorkoutContainer: React.SFC<ManageExercisesForWorkoutCon
     if (workoutId) {
       fetchExerciseInformationFromFirebase();
     }
-  }, [workoutId]);
+  }, [workoutId, workoutAdded]);
+
+  const addExerciseToWorkoutHandler = () => {
+    connectToWorkoutExercisesForWorkoutId(workoutId)
+      .add({
+        title: '',
+        index: exercises.length,
+        exerciseOverviewId: '',
+        equipment: null,
+        isWarmup: false,
+        isCooldown: false,
+        isSuperSet: false,
+        sets: 1,
+        reps: [0],
+        weight: [0],
+      })
+      .then(() => {
+        setWorkoutAdded((curVal) => !curVal);
+      });
+  };
 
   return (
     <PageContainerStyles>
+      <GeneralPageSubTitle> Exercises</GeneralPageSubTitle>
       {exercises &&
         exercises.map((exercise: { id: string; data: exerciseType }) => {
           return (
@@ -47,6 +83,7 @@ const ManageExercisesForWorkoutContainer: React.SFC<ManageExercisesForWorkoutCon
             />
           );
         })}
+      <AiOutlinePlusCircle size={50} onClick={addExerciseToWorkoutHandler} />
     </PageContainerStyles>
   );
 };

@@ -94,12 +94,3 @@ const AddOrEditWorkoutForm: React.SFC<AddOrEditWorkoutFormProps> = ({
 };
 
 export default AddOrEditWorkoutForm;
-
-// workoutProgrammeId: string;
-// title: string;
-// status?: string;
-// isSupervisedSession: boolean;
-// timestamp: any;
-// workoutNumber: number;
-// week: number;
-// isComplete: boolean;
